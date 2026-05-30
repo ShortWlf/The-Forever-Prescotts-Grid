@@ -34,6 +34,8 @@ This Git repository contains the core configuration files, server layouts, and r
 
 To ensure that Joe's dream remains open, accessible, and free for the entire virtual world community to enjoy and build upon, this project is licensed under the **MIT License**. Feel free to use, modify, and share these configurations, keeping the spirit of collaboration alive.
 
+Git Page: https://shortwlf.github.io/The-Forever-Prescotts-Grid
+
 ---
 
 > *"Tight lines and calm waters, always." - In Loving Memory of Joe Prescotts*
