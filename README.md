@@ -1,6 +1,3 @@
-# The-Forever-Prescotts-Grid
-The Forever Prescotts OpenSimulator Grid
-
 # Forever Prescotts Grid
 
 Welcome to the official repository for the **Forever Prescotts** OpenSimulator grid. 
