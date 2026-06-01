@@ -173,8 +173,8 @@
             <p>Connect with other grid anglers, swap stories, and coordinate events straight from your browser.</p>
         </div>
         <div class="iframe-wrapper" style="display: flex; flex-direction: column; height: 700px;">
-            <!-- Uses Libera's exact query format to force-load the channel box instantly -->
-            <iframe src="https://web.libera.chat/?channels=#foreverprescotts" style="width: 100%; height: 100%; flex-grow: 1; border: none;"></iframe>
+            <!-- URL encoding the channel symbol fixes Libera's initialization blanking bug -->
+            <iframe src="https://web.libera.chat/?channels=%23foreverprescotts" style="width: 100%; height: 100%; flex-grow: 1; border: none;"></iframe>
         </div>
     </div>
 
