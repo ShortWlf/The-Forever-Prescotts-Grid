@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community Chat - Forever Prescotts Grid</title>
     <style>
-        /* --- Theme Variables (Dark Fishing/Nautical Aesthetic) --- */
         :root {
             --bg-dark: #0d131a;
             --bg-card: #141d26;
@@ -15,12 +14,8 @@
             --text-muted: #94a3b8;
             --wood-trim: #8c6239;
         }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
@@ -28,19 +23,10 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        /* Navigation Bar */
+
         header {
             background-color: rgba(13, 19, 26, 0.95);
             border-bottom: 2px solid var(--wood-trim);
-            width: 100%;
-            z-index: 1000;
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 1rem 2rem;
         }
         .logo {
@@ -48,162 +34,157 @@
             font-weight: bold;
             color: var(--text-main);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         .logo span { color: var(--accent-glow); }
 
-        .nav-links {
+        .main-content {
             display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .nav-links a:hover { color: var(--accent-glow); }
-
-        /* Chat Area */
-        .chat-container {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            max-width: 1200px;
-            width: 100%;
+            max-width: 1400px;
             margin: 2rem auto;
             padding: 0 2rem;
+            gap: 1.5rem;
         }
-        .chat-header {
-            background-color: var(--bg-card);
-            padding: 1.5rem;
-            border-radius: 8px 8px 0 0;
-            border-top: 3px solid var(--accent-blue);
-        }
-        .chat-header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.25rem;
-        }
-        .chat-header h1 span { color: var(--accent-glow); }
 
-        /* Nickname Input Bar */
-        .nick-bar {
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
             background-color: var(--bg-card);
-            padding: 1rem 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 1.5rem 1rem;
+            height: fit-content;
+            border: 1px solid rgba(255,255,255,0.05);
         }
-        .nick-bar label {
+        .sidebar h2 {
+            color: var(--accent-glow);
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            font-size: 1.1rem;
+        }
+        .channel-btn {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            margin: 0.4rem 0;
+            background-color: #1c2735;
+            border: none;
+            border-radius: 6px;
+            color: var(--text-main);
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .channel-btn:hover {
+            background-color: #2a3a4f;
+        }
+        .channel-btn.active {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+
+        /* Chat Panel */
+        .chat-panel {
+            flex: 1;
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .chat-panel h1 { font-size: 2rem; }
+        .chat-panel h1 span { color: var(--accent-glow); }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        label {
             color: var(--text-muted);
             font-weight: 500;
         }
-        .nick-input {
+        input {
             background-color: #0d131a;
             border: 1px solid #2a6f97;
-            color: var(--text-main);
-            padding: 0.6rem 1rem;
+            color: white;
+            padding: 0.8rem 1rem;
             border-radius: 6px;
-            font-size: 1rem;
-            width: 220px;
+            font-size: 1.05rem;
         }
-        .nick-input:focus {
+        input:focus {
             outline: none;
             border-color: var(--accent-glow);
-            box-shadow: 0 0 0 3px rgba(1, 196, 231, 0.2);
-        }
-        .join-btn {
-            background-color: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .join-btn:hover {
-            background-color: var(--accent-glow);
-            color: #000;
         }
 
-        /* Iframe */
+        .start-btn {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .start-btn:hover {
+            background-color: #34d399;
+        }
+
         .iframe-wrapper {
             flex: 1;
-            background-color: var(--bg-card);
-            border-radius: 0 0 8px 8px;
+            border-radius: 8px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            min-height: 550px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #0a0f17;
+            min-height: 600px;
         }
         iframe {
             width: 100%;
             height: 100%;
             border: none;
-            display: block;
-        }
-
-        footer {
-            background-color: #080c11;
-            padding: 1.5rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: auto;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nick-bar { flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="nav-container">
+        <div style="max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;">
             <a href="index.html" class="logo">⚓ Forever <span>Prescotts</span></a>
-            <ul class="nav-links">
-                <li><a href="index.html#about">The Dream</a></li>
-                <li><a href="index.html#specs">Specifications</a></li>
-                <li><a href="index.html#connect">How to Connect</a></li>
-                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid">Git Repo</a></li>
-                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/wiki">Wiki</a></li>
-                <li><a href="chat.html" style="color: var(--accent-glow);">Chat</a></li>
-                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/discussions" target="_blank">Discussions</a></li>
-            </ul>
         </div>
     </header>
 
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1>Grid <span>Comms Deck</span></h1>
-            <p>Connect with other grid anglers, swap stories, and coordinate events.</p>
+    <div class="main-content">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>RADIO CHANNELS</h2>
+            <button class="channel-btn active" data-channel="#foreverprescotts">⚓ General Chat</button>
+            <button class="channel-btn" data-channel="#prescotts-docks">⛴ The Docks (In-World)</button>
+            <button class="channel-btn" data-channel="#deepsea">🐟 Deep Sea Angling</button>
+            <button class="channel-btn" data-channel="#derby">🏆 Derby & Tournaments</button>
+            <button class="channel-btn" data-channel="#gear">🎣 Gear & Fishing HUDs</button>
+            <button class="channel-btn" data-channel="#memorial">🕊 Memorial Lounge</button>
         </div>
 
-        <!-- Nickname Bar -->
-        <div class="nick-bar">
-            <label for="nick">Nickname:</label>
-            <input type="text" id="nick" class="nick-input" placeholder="YourNick" maxlength="30">
-            <button class="join-btn" onclick="joinChat()">Join Chat</button>
-            <small style="color: var(--text-muted); margin-left: auto;">Libera.Chat • #foreverprescotts</small>
-        </div>
+        <!-- Main Chat Panel -->
+        <div class="chat-panel">
+            <h1>General Chat <span>Comms Deck</span></h1>
+            <p>Main hub for grid chat, greeting new folks, and staying in touch.</p>
 
-        <div class="iframe-wrapper" id="iframeWrapper">
-            <!-- Iframe will be loaded by JavaScript -->
+            <div class="input-group">
+                <label>Nick</label>
+                <input type="text" id="nick" placeholder="YourNick" maxlength="30">
+            </div>
+
+            <div class="input-group">
+                <label>Channel</label>
+                <input type="text" id="channel" readonly>
+            </div>
+
+            <button class="start-btn" onclick="startChat()">Start Chat</button>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Forever Prescotts Grid. Built with respect and community spirit.</p>
-    </footer>
+    <div class="iframe-wrapper" id="iframeWrapper" style="display:none; margin: 0 2rem 2rem 2rem; height: 700px;"></div>
 
-    <!-- Load the JS file -->
     <script src="chat.js"></script>
 </body>
 </html>
