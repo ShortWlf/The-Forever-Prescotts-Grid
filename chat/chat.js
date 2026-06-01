@@ -9,16 +9,22 @@ function saveNick(nick) {
     localStorage.setItem('fpNick', nick);
 }
 
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+    // Load saved nickname
     const savedNick = getStoredNick();
     if (savedNick) {
         document.getElementById('nick').value = savedNick;
     }
 
-    // Channel selector change handler
-    document.getElementById('channel-select').addEventListener('change', function() {
-        currentChannel = this.value;
+    // Channel selector
+    const channelSelect = document.getElementById('channel-select');
+    channelSelect.addEventListener('change', () => {
+        currentChannel = channelSelect.value;
     });
+
+    // Optional: Auto join with saved nick on first load
+    // setTimeout(joinChat, 600);
 });
 
 function joinChat() {
@@ -26,7 +32,7 @@ function joinChat() {
     let nick = nickInput.value.trim();
 
     if (!nick) {
-        nick = "Angler" + Math.floor(Math.random() * 9000);
+        nick = "Angler" + Math.floor(1000 + Math.random() * 9000);
         nickInput.value = nick;
     }
 
@@ -38,5 +44,10 @@ function joinChat() {
     const url = `https://web.libera.chat/?nick=${encodedNick}&channels=${encodedChannel}`;
 
     const wrapper = document.getElementById('iframeWrapper');
-    wrapper.innerHTML = `<iframe src="${url}" allow="clipboard-write"></iframe>`;
+    wrapper.innerHTML = `
+        <iframe src="${url}" 
+                style="width:100%; height:100%; border:none;" 
+                allowfullscreen>
+        </iframe>
+    `;
 }
