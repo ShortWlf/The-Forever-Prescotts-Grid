@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community Chat - Forever Prescotts Grid</title>
     <style>
-        /* --- Theme Variables (Dark Fishing/Nautical Aesthetic) --- */
         :root {
             --bg-dark: #0d131a;
             --bg-card: #141d26;
@@ -31,7 +30,6 @@
             min-height: 100vh;
         }
 
-        /* --- Navigation Bar --- */
         header {
             background-color: rgba(13, 19, 26, 0.95);
             border-bottom: 2px solid var(--wood-trim);
@@ -75,7 +73,6 @@
 
         .nav-links a:hover { color: var(--accent-glow); }
 
-        /* --- Main Layout: Sidebar + Chat Deck --- */
         .chat-layout {
             display: flex;
             max-width: 1200px;
@@ -86,7 +83,6 @@
             flex: 1;
         }
 
-        /* --- Sidebar Style --- */
         .chat-sidebar {
             width: 250px;
             background-color: var(--bg-card);
@@ -135,7 +131,6 @@
             border-color: var(--accent-glow);
         }
 
-        /* --- Chat Display Frame Deck --- */
         .chat-window {
             flex: 1;
             display: flex;
@@ -165,7 +160,6 @@
             font-size: 0.95rem;
         }
 
-        /* --- Footer --- */
         footer {
             background-color: #080c11;
             padding: 1.5rem;
@@ -175,7 +169,6 @@
             border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Responsive adaptation */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .chat-layout { flex-direction: column; padding: 0 1rem; }
@@ -185,73 +178,57 @@
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <a href="index.html" class="logo">⚓ Forever <span>Prescotts</span></a>
-            <ul class="nav-links">
-                <li><a href="index.html#about">The Dream</a></li>
-                <li><a href="index.html#specs">Specifications</a></li>
-                <li><a href="index.html#connect">How to Connect</a></li>
-                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid">Git Repo</a></li>
-                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/wiki/Welcome-to-the-Forever-Prescotts-Grid-Hub-Wiki">Wiki</a></li>
-                <li><a href="#" style="color: var(--accent-glow);">Chat</a></li>
-                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/discussions" target="_blank">Discussions</a></li>
-                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/issues" target="_blank">Issues</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <div class="chat-layout">
-        <aside class="chat-sidebar">
-            <div class="sidebar-title">Radio Channels</div>
-            <ul id="room-list">
-                <li data-room="general" class="active">General Pier</li>
-                <li data-room="fishing-tips">Fishing Tips</li>
-                <li data-room="grid-status">Grid Status Dev</li>
-            </ul>
-        </aside>
-
-        <main class="chat-window">
-            <div id="title-bar">
-                <h1>Radio Room: <span id="room-title">General</span></h1>
-                <p>Welcome to the communications array. Hit connect to join the localized channel feed.</p>
-            </div>
-            </main>
+<header>
+    <div class="nav-container">
+        <a href="index.html" class="logo">⚓ Forever <span>Prescotts</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html#about">The Dream</a></li>
+            <li><a href="index.html#specs">Specifications</a></li>
+            <li><a href="index.html#connect">How to Connect</a></li>
+            <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid">Git Repo</a></li>
+            <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/wiki/Welcome-to-the-Forever-Prescotts-Grid-Hub-Wiki">Wiki</a></li>
+            <li><a href="#" style="color: var(--accent-glow);">Chat</a></li>
+            <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/discussions" target="_blank">Discussions</a></li>
+            <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/issues" target="_blank">Issues</a></li>
+        </ul>
     </div>
+</header>
 
-    <footer>
-        <p>&copy; 2026 Forever Prescotts Grid. Built with respect and community spirit.</p>
-    </footer>
+<div class="chat-layout">
+    <aside class="chat-sidebar">
+        <div class="sidebar-title">Radio Channels</div>
+        <ul id="room-list">
+            <li data-room="general" class="active">General Pier</li>
+            <li data-room="fishing-tips">Fishing Tips</li>
+            <li data-room="grid-status">Grid Status Dev</li>
+        </ul>
+    </aside>
 
-    <script>
-        let currentRoom = "general";
+    <main class="chat-window">
+        <div id="title-bar">
+            <h1>Radio Room: <span id="room-title">General</span></h1>
+            <p>Welcome to the communications array. Hit connect to join the localized channel feed.</p>
+        </div>
+    </main>
+</div>
 
-        window.addEventListener("load", () => {
-            currentRoom = "general";
-            document.querySelectorAll("#room-list li").forEach(li => {
-                li.classList.toggle("active", li.dataset.room === "general");
-            });
-            updateRoomTitle("general");
-            recreateIRCFrame(currentRoom);
+<footer>
+    <p>&copy; 2026 Forever Prescotts Grid. Built with respect and community spirit.</p>
+</footer>
+
+<script>
+    let currentRoom = "general";
+
+    window.addEventListener("load", () => {
+        // Initialize default room
+        currentRoom = "general";
+        document.querySelectorAll("#room-list li").forEach(li => {
+            li.classList.toggle("active", li.dataset.room === "general");
         });
+        updateRoomTitle("general");
+        recreateIRCFrame(currentRoom);
 
-        function updateRoomTitle(room) {
-            const title = document.getElementById("room-title");
-            const pretty = room
-                .replace(/-/g, " ")
-                .replace(/\b\w/g, c => c.toUpperCase());
-            title.textContent = pretty;
-        }
-
-        function switchRoom(room) {
-            currentRoom = room;
-            updateRoomTitle(room);
-            document.querySelectorAll("#room-list li").forEach(li => {
-                li.classList.toggle("active", li.dataset.room === room);
-            });
-        }
-
-        // Setup channel selection clicks
+        // Attach sidebar click listeners AFTER DOM is ready
         document.querySelectorAll("#room-list li").forEach(li => {
             li.addEventListener("click", () => {
                 const room = li.dataset.room;
@@ -259,29 +236,45 @@
                 recreateIRCFrame(room);
             });
         });
+    });
 
-        // FIXED URI FOR AUTOMATIC COMPONENT ENTRY
-        function buildIRCUrl(room) {
-            // Using ?channels=%23 guarantees the network engine auto-populates the box correctly.
-            return `https://web.libera.chat/?channels=%23foreverprescotts_${room}`;
-        }
+    function updateRoomTitle(room) {
+        const title = document.getElementById("room-title");
+        const pretty = room
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, c => c.toUpperCase());
+        title.textContent = pretty;
+    }
 
-        function recreateIRCFrame(room) {
-            const titleBar = document.getElementById("title-bar");
-            const oldFrame = document.getElementById("irc-frame");
-            if (oldFrame) oldFrame.remove();
+    function switchRoom(room) {
+        currentRoom = room;
+        updateRoomTitle(room);
+        document.querySelectorAll("#room-list li").forEach(li => {
+            li.classList.toggle("active", li.dataset.room === room);
+        });
+    }
 
-            const newFrame = document.createElement("iframe");
-            newFrame.id = "irc-frame";
-            newFrame.style.border = "0";
-            newFrame.style.width = "100%";
-            newFrame.style.height = "700px";
-            newFrame.style.background = "#141d26";
-            newFrame.loading = "eager";
-            newFrame.src = buildIRCUrl(room);
+    function buildIRCUrl(room) {
+        return `https://web.libera.chat/?channels=%23foreverprescotts_${room}`;
+    }
 
-            titleBar.insertAdjacentElement("afterend", newFrame);
-        }
-    </script>
+    function recreateIRCFrame(room) {
+        const titleBar = document.getElementById("title-bar");
+        const oldFrame = document.getElementById("irc-frame");
+        if (oldFrame) oldFrame.remove();
+
+        const newFrame = document.createElement("iframe");
+        newFrame.id = "irc-frame";
+        newFrame.style.border = "0";
+        newFrame.style.width = "100%";
+        newFrame.style.height = "700px";
+        newFrame.style.background = "#141d26";
+        newFrame.loading = "eager";
+        newFrame.src = buildIRCUrl(room);
+
+        titleBar.insertAdjacentElement("afterend", newFrame);
+    }
+</script>
+
 </body>
 </html>
