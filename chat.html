@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Chat - Forever Prescotts Grid</title>
+    <style>
+        /* --- Theme Variables (Dark Fishing/Nautical Aesthetic) --- */
+        :root {
+            --bg-dark: #0d131a;
+            --bg-card: #141d26;
+            --accent-blue: #2a6f97;
+            --accent-glow: #01c4e7;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --wood-trim: #8c6239;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Navigation Bar --- */
+        header {
+            background-color: rgba(13, 19, 26, 0.95);
+            border-bottom: 2px solid var(--wood-trim);
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-glow);
+        }
+
+        /* --- Main Chat Content Area --- */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .chat-header {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px 8px 0 0;
+            border-top: 3px solid var(--accent-blue);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .chat-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .chat-header h1 span {
+            color: var(--accent-glow);
+        }
+
+        .chat-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- Embedded Frame --- */
+        .iframe-wrapper {
+            flex: 1;
+            background-color: var(--bg-card);
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-top: none;
+            min-height: 550px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #080c11;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: auto;
+        }
+
+        /* Responsive adaptation */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .chat-container { padding: 0 1rem; margin: 1rem auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">⚓ Forever <span>Prescotts</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#about">The Dream</a></li>
+                <li><a href="index.html#specs">Specifications</a></li>
+                <li><a href="index.html#connect">How to Connect</a></li>
+                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid">Git Repo</a></li>
+                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/wiki/Welcome-to-the-Forever-Prescotts-Grid-Hub-Wiki">Wiki</a></li>
+                <li><a href="#" style="color: var(--accent-glow);">Chat</a></li>
+                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/discussions" target="_blank">Discussions</a></li>
+                <li><a href="https://github.com/ShortWlf/The-Forever-Prescotts-Grid/issues" target="_blank">Issues</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Grid <span>Comms Deck</span></h1>
+            <p>Connect with other grid anglers, swap stories, and coordinate events straight from your browser.</p>
+        </div>
+        <div class="iframe-wrapper">
+            <iframe src="https://irc.kiwiirc.com/?theme=cli&nick=Angler_?#your-channel-here"></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Forever Prescotts Grid. Built with respect and community spirit.</p>
+    </footer>
+
+</body>
+</html>
