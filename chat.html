@@ -220,7 +220,6 @@
     let currentRoom = "general";
 
     window.addEventListener("load", () => {
-        // Initialize default room
         currentRoom = "general";
         document.querySelectorAll("#room-list li").forEach(li => {
             li.classList.toggle("active", li.dataset.room === "general");
@@ -228,7 +227,6 @@
         updateRoomTitle("general");
         recreateIRCFrame(currentRoom);
 
-        // Attach sidebar click listeners AFTER DOM is ready
         document.querySelectorAll("#room-list li").forEach(li => {
             li.addEventListener("click", () => {
                 const room = li.dataset.room;
@@ -255,7 +253,7 @@
     }
 
     function buildIRCUrl(room) {
-        return `https://web.libera.chat/?channels=%23foreverprescotts_${room}`;
+        return `https://web.libera.chat/?channel=#foreverprescotts_${room}`;
     }
 
     function recreateIRCFrame(room) {
