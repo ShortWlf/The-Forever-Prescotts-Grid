@@ -1,6 +1,5 @@
-// chat.js - Forever Prescotts Grid Chat Enhancer
-
-const defaultChannel = "%23foreverprescotts"; // #foreverprescotts URL encoded
+// chat.js
+let currentChannel = "#foreverprescotts";
 
 function getStoredNick() {
     return localStorage.getItem('fpNick') || '';
@@ -10,42 +9,54 @@ function saveNick(nick) {
     localStorage.setItem('fpNick', nick);
 }
 
-function joinChat() {
+// Handle sidebar channel buttons
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.channel-btn');
+    const channelInput = document.getElementById('channel');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active from all
+            buttons.forEach(b => b.classList.remove('active'));
+            // Activate clicked
+            btn.classList.add('active');
+
+            currentChannel = btn.getAttribute('data-channel');
+            channelInput.value = currentChannel;
+        });
+    });
+
+    // Set initial channel
+    channelInput.value = currentChannel;
+
+    // Load saved nickname
+    const savedNick = getStoredNick();
+    if (savedNick) document.getElementById('nick').value = savedNick;
+});
+
+function startChat() {
     const nickInput = document.getElementById('nick');
     let nick = nickInput.value.trim();
 
-    // If user didn't enter anything, generate a random one
     if (!nick) {
-        nick = "Angler" + Math.floor(Math.random() * 9999);
+        nick = "Angler" + Math.floor(1000 + Math.random() * 9000);
         nickInput.value = nick;
     }
 
-    // Save for next time
     saveNick(nick);
 
-    // Build Libera webchat URL
-    const url = `https://web.libera.chat/?nick=${encodeURIComponent(nick)}&channels=${defaultChannel}`;
+    const encodedNick = encodeURIComponent(nick);
+    const encodedChannel = encodeURIComponent(currentChannel);
 
-    // Create and insert iframe
+    const url = `https://web.libera.chat/?nick=${encodedNick}&channels=${encodedChannel}`;
+
+    // Show iframe
     const wrapper = document.getElementById('iframeWrapper');
+    wrapper.style.display = 'block';
     wrapper.innerHTML = `
-        <iframe src="${url}" 
-                style="width: 100%; height: 100%; flex-grow: 1; border: none;" 
-                allow="clipboard-write">
-        </iframe>
+        <iframe src="${url}" allow="clipboard-write"></iframe>
     `;
-}
 
-// Auto-fill nickname from localStorage when page loads
-window.addEventListener('load', () => {
-    const savedNick = getStoredNick();
-    if (savedNick) {
-        document.getElementById('nick').value = savedNick;
-    }
-    
-    // Optional: Auto-join with saved nick after 800ms
-    // Uncomment if you want instant load:
-    // setTimeout(() => {
-    //     if (savedNick) joinChat();
-    // }, 800);
-});
+    // Scroll to iframe
+    wrapper.scrollIntoView({ behavior: "smooth" });
+}
