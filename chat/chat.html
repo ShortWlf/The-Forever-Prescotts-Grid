@@ -14,8 +14,12 @@
             --text-muted: #94a3b8;
             --wood-trim: #8c6239;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
@@ -27,6 +31,15 @@
         header {
             background-color: rgba(13, 19, 26, 0.95);
             border-bottom: 2px solid var(--wood-trim);
+            width: 100%;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 1rem 2rem;
         }
         .logo {
@@ -37,153 +50,156 @@
         }
         .logo span { color: var(--accent-glow); }
 
-        .main-content {
+        .nav-links {
             display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-links a:hover { color: var(--accent-glow); }
+
+        .chat-container {
             flex: 1;
-            max-width: 1400px;
+            max-width: 1200px;
+            width: 100%;
             margin: 2rem auto;
             padding: 0 2rem;
-            gap: 1.5rem;
         }
-
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
+        .chat-header {
             background-color: var(--bg-card);
-            border-radius: 8px;
-            padding: 1.5rem 1rem;
-            height: fit-content;
-            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 8px 8px 0 0;
+            border-top: 3px solid var(--accent-blue);
         }
-        .sidebar h2 {
-            color: var(--accent-glow);
-            margin-bottom: 1rem;
-            padding-left: 1rem;
-            font-size: 1.1rem;
+        .chat-header h1 {
+            font-size: 1.8rem;
         }
-        .channel-btn {
-            width: 100%;
-            padding: 0.85rem 1rem;
-            margin: 0.4rem 0;
-            background-color: #1c2735;
-            border: none;
-            border-radius: 6px;
-            color: var(--text-main);
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .channel-btn:hover {
-            background-color: #2a3a4f;
-        }
-        .channel-btn.active {
-            background-color: var(--accent-blue);
-            color: white;
-        }
+        .chat-header h1 span { color: var(--accent-glow); }
 
-        /* Chat Panel */
-        .chat-panel {
-            flex: 1;
+        /* Nickname + Channel Bar */
+        .control-bar {
             background-color: var(--bg-card);
-            border-radius: 8px;
-            padding: 2rem;
+            padding: 1.2rem 1.5rem;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 1.5rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .chat-panel h1 { font-size: 2rem; }
-        .chat-panel h1 span { color: var(--accent-glow); }
-
-        .input-group {
+        .control-group {
             display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            align-items: center;
+            gap: 0.6rem;
         }
         label {
             color: var(--text-muted);
-            font-weight: 500;
+            white-space: nowrap;
         }
-        input {
+        input, select {
             background-color: #0d131a;
             border: 1px solid #2a6f97;
-            color: white;
-            padding: 0.8rem 1rem;
+            color: var(--text-main);
+            padding: 0.65rem 1rem;
             border-radius: 6px;
-            font-size: 1.05rem;
         }
-        input:focus {
-            outline: none;
-            border-color: var(--accent-glow);
-        }
-
-        .start-btn {
-            background-color: #10b981;
+        .join-btn {
+            background-color: var(--accent-blue);
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
+            padding: 0.65rem 1.8rem;
             border-radius: 6px;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 1rem;
         }
-        .start-btn:hover {
-            background-color: #34d399;
+        .join-btn:hover {
+            background-color: var(--accent-glow);
+            color: #000;
         }
 
         .iframe-wrapper {
             flex: 1;
-            border-radius: 8px;
+            background-color: var(--bg-card);
+            border-radius: 0 0 8px 8px;
             overflow: hidden;
-            background: #0a0f17;
-            min-height: 600px;
+            border: 1px solid rgba(255,255,255,0.05);
+            min-height: 650px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         iframe {
             width: 100%;
             height: 100%;
             border: none;
+            display: block;
+        }
+
+        footer {
+            background-color: #080c11;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .control-bar { flex-direction: column; align-items: stretch; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
     <header>
-        <div style="max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;">
+        <div class="nav-container">
             <a href="index.html" class="logo">⚓ Forever <span>Prescotts</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#about">The Dream</a></li>
+                <li><a href="index.html#specs">Specifications</a></li>
+                <li><a href="index.html#connect">How to Connect</a></li>
+                <li><a href="chat.html" style="color: var(--accent-glow);">Chat</a></li>
+            </ul>
         </div>
     </header>
 
-    <div class="main-content">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h2>RADIO CHANNELS</h2>
-            <button class="channel-btn active" data-channel="#foreverprescotts">⚓ General Chat</button>
-            <button class="channel-btn" data-channel="#prescotts-docks">⛴ The Docks (In-World)</button>
-            <button class="channel-btn" data-channel="#deepsea">🐟 Deep Sea Angling</button>
-            <button class="channel-btn" data-channel="#derby">🏆 Derby & Tournaments</button>
-            <button class="channel-btn" data-channel="#gear">🎣 Gear & Fishing HUDs</button>
-            <button class="channel-btn" data-channel="#memorial">🕊 Memorial Lounge</button>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Grid <span>Comms Deck</span></h1>
+            <p>Connect with other grid anglers, swap stories, and coordinate events.</p>
         </div>
 
-        <!-- Main Chat Panel -->
-        <div class="chat-panel">
-            <h1>General Chat <span>Comms Deck</span></h1>
-            <p>Main hub for grid chat, greeting new folks, and staying in touch.</p>
-
-            <div class="input-group">
-                <label>Nick</label>
-                <input type="text" id="nick" placeholder="YourNick" maxlength="30">
+        <!-- Control Bar -->
+        <div class="control-bar">
+            <div class="control-group">
+                <label for="nick">Nickname:</label>
+                <input type="text" id="nick" placeholder="Angler123" maxlength="30" style="width: 220px;">
             </div>
 
-            <div class="input-group">
-                <label>Channel</label>
-                <input type="text" id="channel" readonly>
+            <div class="control-group">
+                <label for="channel-select">Channel:</label>
+                <select id="channel-select" style="width: 260px;">
+                    <option value="#foreverprescotts">⚓ General Chat (#foreverprescotts)</option>
+                    <option value="#prescotts-docks">⛴ The Docks (In-World)</option>
+                    <option value="#deepsea">🐟 Deep Sea Angling</option>
+                    <option value="#derby">🏆 Derby & Tournaments</option>
+                    <option value="#gear">🎣 Gear & Fishing HUDs</option>
+                    <option value="#memorial">🕊 Memorial Lounge</option>
+                </select>
             </div>
 
-            <button class="start-btn" onclick="startChat()">Start Chat</button>
+            <button class="join-btn" onclick="joinChat()">Join Chat</button>
+        </div>
+
+        <div class="iframe-wrapper" id="iframeWrapper">
+            <!-- Iframe loaded by JS -->
         </div>
     </div>
 
-    <div class="iframe-wrapper" id="iframeWrapper" style="display:none; margin: 0 2rem 2rem 2rem; height: 700px;"></div>
+    <footer>
+        <p>&copy; 2026 Forever Prescotts Grid. Built with respect and community spirit.</p>
+    </footer>
 
     <script src="chat.js"></script>
 </body>
