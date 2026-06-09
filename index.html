@@ -373,31 +373,39 @@
     </footer>
 
 <script>
-    async function updateGridStats() {
-        // We use a public CORS proxy to allow your browser to talk to the grid
-        const targetUrl = 'http://rff.ddns.net:8002/wifi/grid/stats'; 
-        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(targetUrl);
-
+    async function checkGridStatus() {
+        const statusElement = document.getElementById('grid-status');
+        const userElement = document.getElementById('active-users');
+        
+        // We try to fetch the main page of your grid. 
+        // If it responds, the server is "Online".
         try {
-            const response = await fetch(proxyUrl);
-            const data = await response.json();
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 5000); // 5 second timeout
 
-            // Update Status
-            document.getElementById('grid-status').innerText = data.online ? 'Online' : 'Offline';
+            const response = await fetch('https://corsproxy.io/?http://rff.ddns.net:8002', { 
+                mode: 'no-cors',
+                signal: controller.signal 
+            });
+
+            // If we reached here without an error, the server is up
+            statusElement.innerText = "Online";
+            statusElement.style.color = "#01c4e7"; // Accent glow color
             
-            // Update User Count (Adjust 'users' if your JSON shows a different name)
-            document.getElementById('active-users').innerText = data.users || '0';
+            // Note: We cannot get user counts without an API. 
+            // We can only confirm the server is awake.
+            userElement.innerText = "Check Map"; 
             
-            console.log("Stats updated:", data);
         } catch (error) {
-            console.error("Fetch failed:", error);
-            document.getElementById('grid-status').innerText = "Offline";
+            statusElement.innerText = "Offline";
+            statusElement.style.color = "#ff4d4d"; // Red for offline
+            userElement.innerText = "0";
         }
     }
 
-    // Refresh every 60 seconds
-    updateGridStats();
-    setInterval(updateGridStats, 60000);
+    // Run check immediately, then every 30 seconds
+    checkGridStatus();
+    setInterval(checkGridStatus, 30000);
 </script>
 </body>
 </html>
