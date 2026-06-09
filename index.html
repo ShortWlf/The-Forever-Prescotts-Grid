@@ -372,8 +372,32 @@
         <p>&copy; 2026 Forever Prescotts Grid. Built with respect and community spirit.</p>
     </footer>
 
-    <script>
-        console.log("Forever Prescotts frontend initialized.");
-    </script>
+<script>
+    async function updateGridStats() {
+        // We use a public CORS proxy to allow your browser to talk to the grid
+        const targetUrl = 'http://rff.ddns.net:8002/wifi/grid/stats'; 
+        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(targetUrl);
+
+        try {
+            const response = await fetch(proxyUrl);
+            const data = await response.json();
+
+            // Update Status
+            document.getElementById('grid-status').innerText = data.online ? 'Online' : 'Offline';
+            
+            // Update User Count (Adjust 'users' if your JSON shows a different name)
+            document.getElementById('active-users').innerText = data.users || '0';
+            
+            console.log("Stats updated:", data);
+        } catch (error) {
+            console.error("Fetch failed:", error);
+            document.getElementById('grid-status').innerText = "Offline";
+        }
+    }
+
+    // Refresh every 60 seconds
+    updateGridStats();
+    setInterval(updateGridStats, 60000);
+</script>
 </body>
 </html>
