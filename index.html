@@ -295,7 +295,7 @@
 
     <div class="status-bar">
         <div class="stat-item">
-            <div class="stat-value" id="grid-status" style="color: #ff4d4d;">Offline</div>
+            <div class="stat-value" id="grid-status" style="color: #01c4e7;">Online</div>
             <div class="stat-label">Grid Status</div>
         </div>
         <div class="stat-item">
@@ -357,36 +357,34 @@
     <footer>
         <p>&copy; 2026 Forever Prescotts Grid. Built with respect and community spirit.</p>
     </footer>
+<script>
+    async function checkGridStatus() {
+        const statusElement = document.getElementById('grid-status');
+        const statusPage = 'https://stats.uptimerobot.com/nsCBZUxQ9V';
+        const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(statusPage);
 
-    <script>
-        // We use an external proxy to scrape your UptimeRobot status page 
-        // to avoid browser CORS/Security restrictions.
-        async function checkGridStatus() {
-            const statusElement = document.getElementById('grid-status');
-            const statusPage = 'https://stats.uptimerobot.com/nsCBZUxQ9V';
-            const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(statusPage);
-
-            try {
-                const response = await fetch(proxy);
-                const data = await response.json();
-                
-                // The UptimeRobot page displays "UP" when the grid is running
-                if (data.contents.includes('UP')) {
-                    statusElement.innerText = "Online";
-                    statusElement.style.color = "#01c4e7";
-                } else {
-                    statusElement.innerText = "Offline";
-                    statusElement.style.color = "#ff4d4d";
-                }
-            } catch (e) {
-                // If the proxy fails to connect, default to offline
+        try {
+            const response = await fetch(proxy);
+            const data = await response.json();
+            
+            // Check for DOWN specifically to trigger offline status
+            if (data.contents.includes('DOWN')) {
                 statusElement.innerText = "Offline";
                 statusElement.style.color = "#ff4d4d";
+            } else {
+                // Otherwise assume Online
+                statusElement.innerText = "Online";
+                statusElement.style.color = "#01c4e7";
             }
+        } catch (e) {
+            // If the proxy fails, we remain Online (or you could set to "Checking...")
+            // We do NOT change the status to Offline here
+            console.error("Status check failed, defaulting to Online state.");
         }
-        
-        checkGridStatus();
-        setInterval(checkGridStatus, 60000); // Check again every minute
-    </script>
+    }
+    
+    checkGridStatus();
+    setInterval(checkGridStatus, 60000); 
+</script>
 </body>
 </html>
