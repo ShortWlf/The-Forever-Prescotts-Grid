@@ -25,8 +25,6 @@ This Git repository contains the core configuration files, server layouts, and r
 
 * `OpenSim.ini` / `Robust.ini` configurations optimized for high-prim Varregions.
 * Region layout configurations (`regions.ini`).
-* OAR/IAR backup templates and customized terrain maps.
-* Community-contributed open-source LSL scripts and assets tailored for OpenSim fishing systems.
 
 ---
 
