@@ -373,34 +373,30 @@
     </footer>
 
 <script>
-    function checkGridStatus() {
+    async function checkStatus() {
         const statusElement = document.getElementById('grid-status');
-        const activeUsersElement = document.getElementById('active-users');
         
-        // We use a timestamp to force the browser to check the server, not a cached version
-        const pingUrl = "http://rff.ddns.net:8002/favicon.ico?cache=" + new Date().getTime();
-        
-        const img = new Image();
-        
-        img.onload = function() {
-            // If the image loads, the server is definitely reachable
-            statusElement.innerText = "Online";
-            statusElement.style.color = "#01c4e7"; // Accent glow
-        };
-        
-        img.onerror = function() {
-            // If the image fails to load, the server is unreachable
-            statusElement.innerText = "Offline";
-            statusElement.style.color = "#ff4d4d"; // Red
-            activeUsersElement.innerText = "0";
-        };
-        
-        img.src = pingUrl;
-    }
+        // This public API checks if your port is open and returns JSON
+        const checkUrl = 'https://api.mcsrvstat.us/3/rff.ddns.net:8002';
 
-    // Run the check every 30 seconds
-    checkGridStatus();
-    setInterval(checkGridStatus, 30000);
+        try {
+            const response = await fetch(checkUrl);
+            const data = await response.json();
+            
+            if (data.online) {
+                statusElement.innerText = "Online";
+                statusElement.style.color = "#01c4e7";
+            } else {
+                statusElement.innerText = "Offline";
+                statusElement.style.color = "#ff4d4d";
+            }
+        } catch (e) {
+            statusElement.innerText = "Offline";
+        }
+    }
+    
+    checkStatus();
+    setInterval(checkStatus, 60000); // Checks every minute
 </script>
 </body>
 </html>
