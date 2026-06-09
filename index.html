@@ -297,11 +297,16 @@
         </div>
     </section>
 
-    <div class="status-bar">
-        <div class="stat-item">
-            <div class="stat-value" id="grid-status">Online</div>
-            <div class="stat-label">Grid Status</div>
-        </div>
+<div class="status-bar">
+    <div class="stat-item">
+        <div class="stat-value" id="grid-status" style="color: #ff4d4d;">Offline</div>
+        <div class="stat-label">Grid Status</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value" id="active-users">--</div>
+        <div class="stat-label">Anglers In-World</div>
+    </div>
+    </div>
         <div class="stat-item">
             <div class="stat-value" id="active-users">--</div>
             <div class="stat-label">Anglers In-World</div>
@@ -375,8 +380,6 @@
 <script>
     async function checkStatus() {
         const statusElement = document.getElementById('grid-status');
-        
-        // This public API checks if your port is open and returns JSON
         const checkUrl = 'https://api.mcsrvstat.us/3/rff.ddns.net:8002';
 
         try {
@@ -385,18 +388,23 @@
             
             if (data.online) {
                 statusElement.innerText = "Online";
-                statusElement.style.color = "#01c4e7";
+                statusElement.style.color = "#01c4e7"; // Accent glow
             } else {
+                // Server explicitly reports offline
                 statusElement.innerText = "Offline";
-                statusElement.style.color = "#ff4d4d";
+                statusElement.style.color = "#ff4d4d"; // Red
             }
         } catch (e) {
+            // API call failed (server unreachable)
             statusElement.innerText = "Offline";
+            statusElement.style.color = "#ff4d4d";
         }
     }
     
+    // Run once on load
     checkStatus();
-    setInterval(checkStatus, 60000); // Checks every minute
+    // Refresh every 60 seconds
+    setInterval(checkStatus, 60000); 
 </script>
 </body>
 </html>
